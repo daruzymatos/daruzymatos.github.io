@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terra Viva Supermercados</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* --- CONFIGURAÇÕES GERAIS --- */
+        :root {
+            --primary-green: #2e7d32;
+            --light-green: #4caf50;
+            --accent-gold: #c6a700;
+            --bg-color: #f1f8e9;
+            --white: #ffffff;
+            --text-dark: #1a1a1a;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- CABEÇALHO --- */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 10px 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-brand {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-login {
+            background: transparent;
+            border: 1px solid var(--primary-green);
+            color: var(--primary-green);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        
+        .btn-login:hover {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .user-welcome {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            display: none; 
+            align-items: center;
+            gap: 5px;
+        }
+
+        .badge-admin {
+            background-color: var(--accent-gold);
+            color: #000;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .cart-widget {
+            position: relative;
+            cursor: pointer;
+            padding: 8px 15px;
+            background: var(--primary-green);
+            border-radius: 20px;
+            color: white;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cart-widget:hover {
+            transform: scale(1.05);
+            background: #1b5e20;
+        }
+
+        .cart-count {
+            background-color: var(--accent-gold);
+            color: var(--text-dark);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1610832958506-aa56368176cf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .hero-logo-img {
+            width: 400px;
+            max-width: 90%;
+            height: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 15px rgba(0,0,0,0.6));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            color: #eee;
+        }
+
+        .btn-cta {
+            background-color: var(--accent-gold);
+            color: #000;
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(198, 167, 0, 0.6);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        .btn-cta:hover {
+            background-color: #ffd700;
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(198, 167, 0, 0.9);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(198, 167, 0, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(198, 167, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(198, 167, 0, 0); }
+        }
+
+        /* --- GRID DE PRODUTOS --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section-header {
+            text-align: left;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--primary-green);
+            padding-left: 15px;
+            margin-top: 60px; /* Mais espaço entre categorias */
+            background: linear-gradient(to right, #e8f5e9, transparent);
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .login-wall {
+            text-align: center;
+            background: white;
+            padding: 60px 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s;
+            max-width: 600px;
+            margin: 50px auto;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #eee;
+            position: relative;
+        }
+        
+        .product-card.is-offer {
+            border: 2px solid var(--accent-gold);
+        }
+        
+        .offer-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--accent-gold);
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--light-green);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background-color: #fff;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .product-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            color: var(--primary-green);
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .btn-add {
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            font-family: 'Poppins', sans-serif;
+            transition: background 0.2s;
+        }
+
+        .btn-add:hover {
+            background-color: #1b5e20;
+        }
+
+        .admin-controls {
+            display: flex; 
+            justify-content: space-between;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+        }
+        
+        .btn-admin {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+            color: white;
+            flex: 1;
+            margin: 0 2px;
+        }
+
+        .btn-edit { background-color: #f39c12; }
+        .btn-delete { background-color: #c0392b; }
+
+        .fab-add {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-green);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 60px;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            cursor: pointer;
+            z-index: 1001;
+            transition: transform 0.2s;
+        }
+        .fab-add:hover { transform: scale(1.1); }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cart-modal-content {
+            background-color: white;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100%;
+            max-width: 400px;
+            height: 100%;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .center-modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            animation: popIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .cart-header, .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .cart-items {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .btn-checkout {
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .btn-checkout:hover { background-color: #1976D2; }
+
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
+        .form-group input[type="text"], 
+        .form-group input[type="email"], 
+        .form-group input[type="password"],
+        .form-group input[type="number"],
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 10px;
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .switch-auth {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            color: var(--primary-green);
+            text-decoration: underline;
+        }
+
+        /* --- SUCESSO MODAL --- */
+        .success-icon {
+            font-size: 4rem;
+            color: var(--light-green);
+            margin-bottom: 20px;
+            animation: popIn 0.5s ease;
+        }
+        .success-title {
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+        .success-text {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        footer {
+            background-color: #1a1a1a;
+            color: #ccc;
+            text-align: center;
+            padding: 40px 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-brand">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        </div>
+        
+        <div class="header-actions">
+            <span class="user-welcome" id="userDisplay"></span>
+
+            <button class="btn-login" id="btnLoginBtn" onclick="openAuthModal()">
+                <i class="fas fa-user"></i> Login
+            </button>
+            <button class="btn-login" id="btnLogoutBtn" onclick="logout()" style="display:none; background-color:#c0392b; border-color:#c0392b; color:white;">
+                <i class="fas fa-sign-out-alt"></i> Sair
+            </button>
+
+            <div class="cart-widget" onclick="toggleCart()">
+                <i class="fas fa-shopping-basket"></i>
+                <div class="cart-count" id="cartCount">0</div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <img src="logo.png" alt="Logo Terra Viva" class="hero-logo-img">
+        
+        <h1>Bem-vindo ao Terra Viva</h1>
+        <p>Qualidade do campo direto para sua mesa</p>
+        
+        <a href="#loja" class="btn-cta">
+            Conferir Produtos <i class="fas fa-arrow-down" style="margin-left:10px;"></i>
+        </a>
+    </section>
+
+    <div class="container" id="loja">
+        
+       <div id="loginWall" class="login-wall" style="display: none;">
+    <i class="fas fa-lock" style="font-size: 3rem; color: var(--primary-green); margin-bottom: 20px;"></i>
+    
+    <h3>Produtos Bloqueados</h3>
+    
+    <p>Faça login ou cadastre-se para ver os preços e ofertas exclusivas.</p>
+    
+    <button 
+        class="btn-cta" 
+        onclick="openAuthModal()" 
+        style="font-size: 1rem; padding: 10px 30px;">
+        Entrar
+    </button>
+</div>
+
+<div id="storeContent" style="display: none;">
+
+    <div id="offersSection" style="display: none;">
+        <div class="section-header">
+            <h2>🔥 Ofertas da Semana</h2>
+        </div>
+
+        <div class="products-grid" id="offersContainer"></div>
+
+        <hr style="margin: 50px 0; border: 0; border-top: 1px dashed #ccc;">
+    </div>
+
+    <div id="aislesContainer"></div>
+
+</div>
+    <div class="fab-add" id="adminAddBtn" onclick="openProductModal()">
+        <i class="fas fa-plus"></i>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Terra Viva Supermercados</p>
+    </footer>
+
+    <div class="modal-overlay" id="successModal" style="z-index: 2003;">
+        <div class="center-modal-content" style="text-align: center;">
+            <i class="fas fa-check-circle success-icon"></i>
+            <h2 class="success-title">Pedido Iniciado!</h2>
+            <p class="success-text">
+                Seu aplicativo de e-mail foi aberto com os detalhes do pedido.<br><br>
+                <b>Importante:</b> Clique em "Enviar" no seu e-mail para que o supermercado receba seu pedido.
+            </p>
+            <button class="btn-submit" onclick="closeSuccessModal()">Entendi, fechar</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="cartModal">
+        <div class="cart-modal-content">
+            <div class="cart-header">
+                <h3 style="margin:0">Cesta de Compras</h3>
+                <button onclick="toggleCart()" style="background:none; border:none; font-size:1.5rem; cursor:pointer">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItemsList">
+                <p style="text-align:center; color:#999; margin-top:20px;">Sua cesta está vazia.</p>
+            </div>
+            <div style="font-size: 1.2rem; font-weight: bold; display: flex; justify-content: space-between; color: var(--primary-green);">
+                <span>Total:</span>
+                <span id="cartTotalValue">R$ 0,00</span>
+            </div>
+            
+            <button class="btn-checkout" onclick="checkout()">
+                <i class="fas fa-envelope"></i> Enviar Pedido por E-mail
+            </button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="authModal" style="z-index: 2001;">
+        <div class="center-modal-content">
+            <div class="modal-header">
+                <h3 id="authTitle">Login</h3>
+                <button onclick="closeAuthModal()" style="background:none; border:none; font-size:1.5rem; cursor:pointer">&times;</button>
+            </div>
+            
+            <div id="loginForm">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" placeholder="seu@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="loginPass" placeholder="******">
+                </div>
+                <button class="btn-submit" onclick="performLogin()">Entrar</button>
+                <div class="switch-auth" onclick="toggleAuthMode('register')">Não tem conta? Cadastre-se</div>
+            </div>
+
+            <div id="registerForm" style="display:none;">
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input type="text" id="regName" placeholder="Seu Nome">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="regEmail" placeholder="seu@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="regPass" placeholder="******">
+                </div>
+                <div class="form-group">
+                    <label>Tipo de Conta</label>
+                    <select id="regRole" onchange="toggleAdminCode()">
+                        <option value="client">Cliente</option>
+                        <option value="admin">Gerente</option>
+                    </select>
+                </div>
+                <div class="form-group" id="adminCodeGroup" style="display:none; background-color: #fff3cd; padding: 10px; border-radius: 5px;">
+                    <label style="color: #856404;">Código de Acesso da Loja</label>
+                    <input type="password" id="regAdminCode" placeholder="Código Secreto">
+                    <small style="color:red">Obrigatório para gerentes</small>
+                </div>
+
+                <button class="btn-submit" onclick="performRegister()">Cadastrar</button>
+                <div class="switch-auth" onclick="toggleAuthMode('login')">Já tem conta? Fazer Login</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="productModal" style="z-index: 2002;">
+        <div class="center-modal-content">
+            <div class="modal-header">
+                <h3 id="productModalTitle">Editar Produto</h3>
+                <button onclick="closeProductModal()" style="background:none; border:none; font-size:1.5rem; cursor:pointer">&times;</button>
+            </div>
+            <input type="hidden" id="editProdId">
+            <div class="form-group">
+                <label>Nome do Produto</label>
+                <input type="text" id="editName">
+            </div>
+            <div class="form-group">
+                <label>Detalhe (ex: O Kg, Unidade, Garrafa)</label>
+                <input type="text" id="editDetail">
+            </div>
+            <div class="form-group">
+                <label>Preço (R$)</label>
+                <input type="number" step="0.01" id="editPrice">
+            </div>
+            <div class="form-group">
+                <label>URL da Imagem</label>
+                <input type="text" id="editImg">
+            </div>
+            
+            <div class="form-group">
+                <label>Categoria (Corredor)</label>
+                <select id="editCategory">
+                    <option value="hortifruti">🥬 Hortifruti (Frutas e Verduras)</option>
+                    <option value="mercearia">🍝 Mercearia (Comidas e Molhos)</option>
+                    <option value="bebidas">🥤 Bebidas (Sucos e Água)</option>
+                    <option value="alcoolicas">🍺 Bebidas Alcoólicas</option>
+                    <option value="doces">🍫 Doces e Sobremesas</option>
+                    <option value="limpeza">🧹 Limpeza e Higiene</option>
+                </select>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="editIsOffer" style="width: 20px; height: 20px;">
+                <label for="editIsOffer" style="margin:0; cursor:pointer;">É Oferta da Semana? (Aparece no topo)</label>
+            </div>
+            <br>
+            <button class="btn-submit" onclick="saveProduct()">Salvar Alterações</button>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. DADOS INICIAIS (Com Categorias) ---
+        const initialProducts = [
+            
+        ];
+
+        let products = JSON.parse(localStorage.getItem('terraVivaProducts')) || initialProducts;
+        let cart = [];
+        let currentUser = JSON.parse(localStorage.getItem('terraVivaCurrentUser')) || null;
+
+        // Mapa de nomes bonitos para as categorias
+        const categoryNames = {
+            'hortifruti': '<i class="fas fa-carrot"></i> Hortifruti',
+            'mercearia': '<i class="fas fa-utensils"></i> Mercearia (Comidas e Molhos)',
+            'bebidas': '<i class="fas fa-glass-whiskey"></i> Sucos e Bebidas',
+            'alcoolicas': '<i class="fas fa-beer"></i> Bebidas Alcoólicas',
+            'doces': '<i class="fas fa-cookie-bite"></i> Doces e Sobremesas',
+            'limpeza': '<i class="fas fa-soap"></i> Limpeza e Higiene'
+        };
+
+        // --- 2. AUTH E UI ---
+        function openAuthModal() { document.getElementById('authModal').style.display = 'flex'; }
+        function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
+        
+        function toggleAuthMode(mode) {
+            const loginForm = document.getElementById('loginForm');
+            const regForm = document.getElementById('registerForm');
+            const title = document.getElementById('authTitle');
+            if (mode === 'register') {
+                loginForm.style.display = 'none'; regForm.style.display = 'block'; title.innerText = 'Cadastro';
+            } else {
+                loginForm.style.display = 'block'; regForm.style.display = 'none'; title.innerText = 'Login';
+            }
+        }
+
+        function toggleAdminCode() {
+            const role = document.getElementById('regRole').value;
+            const codeGroup = document.getElementById('adminCodeGroup');
+            if (role === 'admin') {
+                codeGroup.style.display = 'block';
+            } else {
+                codeGroup.style.display = 'none';
+            }
+        }
+
+        function performRegister() {
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const pass = document.getElementById('regPass').value;
+            const role = document.getElementById('regRole').value;
+            const adminCode = document.getElementById('regAdminCode').value;
+            
+            if(!name || !email || !pass) return alert('Preencha todos os campos!');
+            
+            if (role === 'admin') {
+                if (adminCode !== 'TERRA2026') {
+                    alert('Código de acesso de gerente inválido! Se você é um cliente, selecione "Cliente".');
+                    return;
+                }
+            }
+
+            const users = JSON.parse(localStorage.getItem('terraVivaUsers')) || [];
+            if(users.find(u => u.email === email)) return alert('Email já existe!');
+            
+            users.push({ name, email, pass, role });
+            localStorage.setItem('terraVivaUsers', JSON.stringify(users));
+            alert('Cadastro realizado com sucesso! Faça login.');
+            toggleAuthMode('login');
+        }
+
+        function performLogin() {
+            const email = document.getElementById('loginEmail').value;
+            const pass = document.getElementById('loginPass').value;
+            const users = JSON.parse(localStorage.getItem('terraVivaUsers')) || [];
+            const user = users.find(u => u.email === email && u.pass === pass);
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('terraVivaCurrentUser', JSON.stringify(user));
+                closeAuthModal();
+                updateUserInterface();
+            } else {
+                alert('E-mail ou senha incorretos.');
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('terraVivaCurrentUser');
+            updateUserInterface();
+            alert('Você saiu.');
+        }
+
+        function updateUserInterface() {
+            const display = document.getElementById('userDisplay');
+            const loginBtn = document.getElementById('btnLoginBtn');
+            const logoutBtn = document.getElementById('btnLogoutBtn');
+            const adminBtn = document.getElementById('adminAddBtn');
+
+            if (currentUser) {
+                if (currentUser.role === 'admin') {
+                    display.innerHTML = `Olá, ${currentUser.name.split(' ')[0]} <span class="badge-admin">GERENTE</span>`;
+                    adminBtn.style.display = 'block';
+                } else {
+                    display.innerHTML = `Olá, ${currentUser.name.split(' ')[0]}`;
+                    adminBtn.style.display = 'none';
+                }
+                display.style.display = 'flex';
+                loginBtn.style.display = 'none';
+                logoutBtn.style.display = 'inline';
+            } else {
+                display.style.display = 'none';
+                loginBtn.style.display = 'inline';
+                logoutBtn.style.display = 'none';
+                adminBtn.style.display = 'none';
+            }
+            renderProducts(); 
+        }
+
+        // --- 3. RENDERIZAÇÃO DE PRODUTOS (COM CATEGORIAS) ---
+        function renderProducts() {
+            const loginWall = document.getElementById('loginWall');
+            const storeContent = document.getElementById('storeContent');
+            const offersSection = document.getElementById('offersSection');
+            const offersContainer = document.getElementById('offersContainer');
+            const aislesContainer = document.getElementById('aislesContainer');
+
+            if (!currentUser) {
+                loginWall.style.display = 'block';
+                storeContent.style.display = 'none';
+                return;
+            }
+
+            loginWall.style.display = 'none';
+            storeContent.style.display = 'block';
+
+            // 1. Renderizar Ofertas
+            const offerProducts = products.filter(p => p.isOffer);
+            if (offerProducts.length > 0) {
+                offersSection.style.display = 'block';
+                offersContainer.innerHTML = '';
+                offerProducts.forEach(p => offersContainer.innerHTML += createProductCard(p));
+            } else {
+                offersSection.style.display = 'none';
+            }
+
+            // 2. Renderizar Corredores (Categorias)
+            aislesContainer.innerHTML = '';
+            
+            // Pega todas as categorias usadas que NÃO são ofertas
+            const regularProducts = products.filter(p => !p.isOffer);
+            
+            // Agrupa produtos por categoria
+            const categories = {};
+            regularProducts.forEach(p => {
+                const cat = p.category || 'outros'; // Se não tiver categoria, vai para 'outros'
+                if (!categories[cat]) categories[cat] = [];
+                categories[cat].push(p);
+            });
+
+            // Cria uma seção para cada categoria que tem produtos
+            // Ordem definida nas chaves do objeto categoryNames (opcional)
+            const order = ['hortifruti', 'mercearia', 'bebidas', 'alcoolicas', 'doces', 'limpeza'];
+            
+            order.forEach(catKey => {
+                if (categories[catKey] && categories[catKey].length > 0) {
+                    const sectionHtml = `
+                        <div class="section-header">
+                            <h2>${categoryNames[catKey] || 'Outros Produtos'}</h2>
+                        </div>
+                        <div class="products-grid">
+                            ${categories[catKey].map(p => createProductCard(p)).join('')}
+                        </div>
+                    `;
+                    aislesContainer.innerHTML += sectionHtml;
+                }
+            });
+
+            // Se sobrar alguma categoria não listada na ordem (ex: 'outros' legado)
+            Object.keys(categories).forEach(catKey => {
+                if (!order.includes(catKey)) {
+                    const sectionHtml = `
+                        <div class="section-header">
+                            <h2>Outros Produtos</h2>
+                        </div>
+                        <div class="products-grid">
+                            ${categories[catKey].map(p => createProductCard(p)).join('')}
+                        </div>
+                    `;
+                    aislesContainer.innerHTML += sectionHtml;
+                }
+            });
+            
+            if (regularProducts.length === 0 && offerProducts.length === 0) {
+                 aislesContainer.innerHTML = '<p style="text-align:center; margin-top:50px; color:#666;">Nenhum produto cadastrado na loja.</p>';
+            }
+        }
+
+        // Função auxiliar para criar o HTML do card
+        function createProductCard(product) {
+            const isAdmin = (currentUser.role === 'admin');
+            let adminBtns = isAdmin ? `<div class="admin-controls"><button class="btn-admin btn-edit" onclick="openProductModal(${product.id})">Editar</button><button class="btn-admin btn-delete" onclick="deleteProduct(${product.id})">Excluir</button></div>` : '';
+            
+            let badge = product.isOffer ? `<div class="offer-badge">🔥 OFERTA</div>` : '';
+            let cardClass = product.isOffer ? 'product-card is-offer' : 'product-card';
+            
+            return `
+            <div class="${cardClass}">
+                ${badge}
+                <img src="${product.img}" class="product-image">
+                <div class="product-info">
+                    <div>
+                        <div class="product-name">${product.name}</div>
+                        <div style="color:#888;font-size:0.9rem">${product.detail}</div>
+                    </div>
+                    <div>
+                        <div class="product-price">R$ ${product.price.toFixed(2).replace('.', ',')}</div>
+                        ${adminBtns}
+                        <button class="btn-add" onclick="addToCart(${product.id})">Adicionar</button>
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        function checkAdmin() {
+            if (!currentUser || currentUser.role !== 'admin') { alert("Acesso negado: Apenas gerentes!"); return false; }
+            return true;
+        }
+
+        function deleteProduct(id) {
+            if (!checkAdmin()) return;
+            if(confirm('Tem certeza que deseja excluir este produto?')) {
+                products = products.filter(p => p.id !== id);
+                localStorage.setItem('terraVivaProducts', JSON.stringify(products));
+                renderProducts();
+            }
+        }
+
+        // --- MANIPULAÇÃO DO MODAL DE PRODUTO ---
+        function openProductModal(id = null) {
+            if (!checkAdmin()) return;
+            const modal = document.getElementById('productModal');
+            document.getElementById('editProdId').value = id || '';
+            
+            if (id) {
+                const p = products.find(x => x.id === id);
+                document.getElementById('editName').value = p.name;
+                document.getElementById('editDetail').value = p.detail;
+                document.getElementById('editPrice').value = p.price;
+                document.getElementById('editImg').value = p.img;
+                document.getElementById('editIsOffer').checked = p.isOffer || false;
+                document.getElementById('editCategory').value = p.category || 'hortifruti'; // Carrega categoria
+            } else {
+                document.getElementById('editName').value = '';
+                document.getElementById('editDetail').value = '';
+                document.getElementById('editPrice').value = '';
+                document.getElementById('editImg').value = '';
+                document.getElementById('editIsOffer').checked = false;
+                document.getElementById('editCategory').value = 'hortifruti';
+            }
+            modal.style.display = 'flex';
+        }
+
+        function saveProduct() {
+            if (!checkAdmin()) return;
+            const id = document.getElementById('editProdId').value;
+            const name = document.getElementById('editName').value;
+            const detail = document.getElementById('editDetail').value;
+            const price = parseFloat(document.getElementById('editPrice').value);
+            const img = document.getElementById('editImg').value || 'https://via.placeholder.com/400';
+            const isOffer = document.getElementById('editIsOffer').checked;
+            const category = document.getElementById('editCategory').value; // Pega categoria
+            
+            if(!name || !price) return alert("Preencha nome e preço.");
+
+            if (id) {
+                const idx = products.findIndex(p => p.id == id);
+                products[idx] = { ...products[idx], name, detail, price, img, isOffer, category };
+            } else {
+                const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+                products.push({ id: newId, name, detail, price, img, isOffer, category });
+            }
+            localStorage.setItem('terraVivaProducts', JSON.stringify(products));
+            closeProductModal();
+            renderProducts();
+        }
+
+        function closeProductModal() { document.getElementById('productModal').style.display = 'none'; }
+
+        // --- 4. CARRINHO ---
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            cart.push(product);
+            updateCartUI();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            document.getElementById('cartCount').innerText = cart.length;
+            const list = document.getElementById('cartItemsList');
+            let total = 0;
+            list.innerHTML = cart.length ? '' : '<p style="text-align:center;color:#999;margin-top:20px;">Sua cesta está vazia.</p>';
+            cart.forEach((item, index) => {
+                total += item.price;
+                list.innerHTML += `<div class="cart-item"><div><b>${item.name}</b><br>R$ ${item.price.toFixed(2)}</div><button onclick="removeFromCart(${index})" style="color:red;border:none;background:none;cursor:pointer">X</button></div>`;
+            });
+            document.getElementById('cartTotalValue').innerText = 'R$ ' + total.toFixed(2).replace('.', ',');
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        // --- 5. CHECKOUT ---
+        function checkout() {
+            if (cart.length === 0) return alert("Cesta vazia!");
+
+            // --- CONFIGURAÇÃO DO EMAIL DO SUPERMERCADO ---
+            const emailSupermercado = "pedidos@supermercadoterraviva.com.br"; // <-- SEU EMAIL AQUI
+            // ---------------------------------------------
+
+            let clienteNome = currentUser ? currentUser.name : 'Cliente Anônimo';
+            let clienteEmail = currentUser ? currentUser.email : 'Não informado';
+            
+            const subject = encodeURIComponent(`Novo Pedido - ${clienteNome}`);
+            let body = `Olá! Gostaria de fazer o seguinte pedido:%0D%0A%0D%0A`;
+            
+            let total = 0;
+            cart.forEach(item => {
+                body += `- ${item.name} (${item.detail}): R$ ${item.price.toFixed(2).replace('.', ',')}%0D%0A`;
+                total += item.price;
+            });
+
+            body += `%0D%0A--------------------------------%0D%0A`;
+            body += `TOTAL DO PEDIDO: R$ ${total.toFixed(2).replace('.', ',')}%0D%0A`;
+            body += `--------------------------------%0D%0A%0D%0A`;
+            body += `DADOS DO CLIENTE:%0D%0A`;
+            body += `Nome: ${clienteNome}%0D%0A`;
+            body += `Email de contato: ${clienteEmail}%0D%0A`;
+            body += `%0D%0AAguardo a confirmação da entrega.`;
+
+            cart = [];
+            updateCartUI();
+            document.getElementById('cartModal').style.display = 'none';
+            document.getElementById('successModal').style.display = 'flex';
+
+            setTimeout(() => {
+                window.location.href = `mailto:${emailSupermercado}?subject=${subject}&body=${body}`;
+            }, 500);
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').style.display = 'none';
+        }
+
+        window.onclick = function(e) {
+            if (e.target == document.getElementById('cartModal')) toggleCart();
+            if (e.target == document.getElementById('authModal')) closeAuthModal();
+            if (e.target == document.getElementById('productModal')) closeProductModal();
+            if (e.target == document.getElementById('successModal')) closeSuccessModal();
+        }
+
+        updateUserInterface();
+    </script>
+</body>
+</html>
